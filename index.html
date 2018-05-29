@@ -1,0 +1,651 @@
+<!DOCTYPE HTML><html><head><title>Application Service API API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 7.1.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+      .items {
+        background: #f5f5f5;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 9.5px;
+        margin: 0 0 10px;
+        font-size: 13px;
+        line-height: 1.42857143;
+      }
+      .examples {
+        margin-left: 0.5em;
+      }
+      .resource-modal li > ul {
+        margin-bottom: 1em;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Application Service API API documentation <small>version v1</small></h1><p>applications.{env}.internal</p><ul><li><strong>env</strong>: <em>required (string)</em></li></ul></div><div class="panel panel-default"><div class="panel-heading"><h3 id="schemas" class="panel-title">Schemas</h3></div><div class="panel-body"><div class="top-resource-description"><p>Top level collection of schemas. The information contained in the schemas provides enough information to build a smart client that knows what actions are available, what fields make up a resource, etc.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_schemas"><span class="parent"></span>/schemas</a> <span class="methods"><a href="#schemas_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_schemas" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#schemas_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves a collection of Schema resources for each resource type.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="schemas_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/schemas</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves a collection of Schema resources for each resource type.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#schemas_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="schemas_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "type": "collection",
+  "resourceType": "schema",
+  "data": [
+    {
+      "id": "application_template",
+      "type": "schema",
+      "links": {
+        "self": "{baseUri}/schemas/application_template",
+        "collection": "{baseUri}/application_templates"
+      },
+      "resourceFields": {
+        "id": {
+          "type": "int",
+          "unique": true
+        },
+        "create_date": {
+          "type": "date"
+        },
+        "display_name": {
+          "type": "string",
+          "required": true
+        },
+        "steps": {
+          "type": "array[reference[application_step_template]]",
+          "required": true
+        }
+      }
+    },
+    {
+      "id": "application_step_template",
+      "type": "schema",
+      "links": {
+        "self": "{baseUri}/schemas/application_step_template",
+        "collection": "{baseUri}/application_step_templates"
+      },
+      "resourceFields": {
+        "id": {
+          "type": "int",
+          "unique": true
+        },
+        "application_template_id": {
+          "type": "reference[application_template]",
+          "required": true
+        },
+        "type": {
+          "type": "enum",
+          "options": ["old_games", "games", "numerical_reasoning", "surveys", "calculate_model_fitscores", "video"],
+          "create": true,
+          "required": true
+        },
+        "index": {
+          "type": "int",
+          "create": true,
+          "required": true
+        },
+        "config": {
+          "type": "map",
+          "default": {},
+          "create": true
+        }
+      }
+    },
+    {
+      "id": "application",
+      "type": "schema",
+      "links": {
+        "self": "{baseUri}/schemas/application",
+        "collection": "{baseUri}/applications"
+      },
+      "resourceFields": {
+        "id": {
+          "type": "int",
+          "unique": true
+        },
+        "create_date": {
+          "type": "date"
+        },
+        "complete_date": {
+          "type": "date",
+          "nullable": true
+        },
+        "application_template_id": {
+          "type": "reference[application_template]",
+          "required": true
+        },
+        "user_id": {
+          "type": "int",
+          "required": true
+        },
+        "status": {
+          "type": "enum",
+          "options": ["not_started", "in_progress", "complete"]
+        },
+        "steps": {
+          "type": "array[reference[application_step]]"
+        }
+      }
+    },
+    {
+      "id": "application_step",
+      "type": "schema",
+      "links": {
+        "self": "{baseUri}/schemas/application_step",
+        "collection": "{baseUri}/application_steps"
+      },
+      "resourceFields": {
+        "id": {
+          "type": "int",
+          "unique": true
+        },
+        "start_date": {
+          "type": "date",
+          "nullable": true
+        },
+        "complete_date": {
+          "type": "date",
+          "nullable": true
+        },
+        "application_step_id": {
+          "type": "reference[application_step]",
+          "required": true
+        },
+        "application_step_template_id": {
+          "type": "reference[application_step_template]",
+          "required": true
+        },
+        "status": {
+          "type": "enum",
+          "options": ["not_started", "in_progress", "complete"]
+        }
+      }
+    }
+  ]
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="applicationtemplates" class="panel-title">ApplicationTemplates</h3></div><div class="panel-body"><div class="top-resource-description"><p>Endpoints which interact with ApplicationTemplate resource. Consumers will use these endpoints to create and configure application templates.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applicationtemplates"><span class="parent"></span>/applicationTemplates</a> <span class="methods"><a href="#applicationtemplates_get"><span class="badge badge_get">get</span></a> <a href="#applicationtemplates_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_applicationtemplates" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applicationtemplates_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves a collection of ApplicationTemplate resources.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#applicationtemplates_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Creates a new ApplicationTemplate resource.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applicationtemplates_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/applicationTemplates</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves a collection of ApplicationTemplate resources.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applicationtemplates_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applicationtemplates_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>type</strong>: <em>required (string - default: collection)</em></li><li><strong>resourceType</strong>: <em>required (string - default: ApplicationTemplate)</em></li><li><strong>data</strong>: <em>required (array of object)</em><p><strong>Items</strong>: ApplicationTemplate</p><div class="items"><ul><li><strong>id</strong>: <em>(number)</em></li><li><strong>display_name</strong>: <em>required (string)</em></li><li><strong>steps</strong>: <em>required (array of ApplicationStepTemplate)</em><p><strong>Items</strong>: ApplicationStepTemplate</p><div class="items"><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_template_id</strong>: <em>(integer)</em></li><li><strong>type</strong>: <em>required (one of old_games, games, numerical_reasoning, surveys, calculate_model_matches, video)</em><p>Types of Application Steps handled by the ApplicationService.</p></li><li><strong>index</strong>: <em>required (integer)</em></li><li><strong>config</strong>: <em>required (object)</em><ul></ul></li></ul></div></li><li><strong>create_date</strong>: <em>(datetime)</em></li></ul></div></li><li><strong>links</strong>: <em>required (object)</em><ul><li><strong>self</strong>: <em>required (string)</em></li></ul></li><li><strong>pagination</strong>: <em>required (object)</em><ul><li><strong>first</strong>: <em>required (string)</em></li><li><strong>previous</strong>: <em>required (string)</em></li><li><strong>next</strong>: <em>required (string)</em></li><li><strong>last</strong>: <em>required (string)</em></li><li><strong>limit</strong>: <em>required (integer)</em></li><li><strong>total</strong>: <em>required (integer)</em></li><li><strong>partial</strong>: <em>required (boolean)</em></li></ul></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "type": "collection",
+  "resourceType": "ApplicationTemplate",
+  "data": [
+    {
+      "id": 101,
+      "display_name": "Lion Tamer Candidate Application",
+      "steps": [{
+        "id": 11,
+        "application_template_id": 101,
+        "index": 0,
+        "type": "old_games",
+        "config": {
+          "game_collection_id": 24,
+          "platforms": ["web", "mobile"]
+        }
+      }, {
+        "id": 12,
+        "application_template_id": 101,
+        "index": 1,
+        "type": "numerical_reasoning",
+        "config": {
+          "assessment_id": 27
+        }
+      }],
+      "create_date": "2018-05-15T15:53:00+05:00"
+    }, {
+      "id": 202,
+      "display_name": "Alligator Wrangler Candidate Application",
+      "steps": [{
+        "id": 13,
+        "application_template_id": 202,
+        "index": 0,
+        "type": "games",
+        "config": {
+          "game_slugs": ["eyes", "towers", "keypresses", "cards", "arrows"]
+        }
+      }, {
+        "id": 14,
+        "application_template_id": 202,
+        "index": 1,
+        "type": "calculate_model_matches",
+        "config": {
+          "model_ids": [11711]
+        }
+      }, {
+        "id": 15,
+        "application_template_id": 202,
+        "index": 2,
+        "type": "numerical_reasoning",
+        "config": {
+          "assessment_id": 28
+        }
+      }],
+      "create_date": "2018-05-25T15:53:00+05:00"
+    }
+  ],
+  "links": {
+    "self": "&lt;&lt;resourcePath&gt;&gt;?limit=2"
+  },
+  "pagination": {
+    "first": "&lt;&lt;resourcePath&gt;&gt;",
+    "previous": "&lt;&lt;resourcePath&gt;&gt;",
+    "next": "&lt;&lt;resourcePath&gt;&gt;?page=2",
+    "last": "&lt;&lt;resourcePath&gt;&gt;?page=4",
+    "limit": 2,
+    "total": 7,
+    "partial": true
+  }
+}
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="applicationtemplates_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/applicationTemplates</h4></div><div class="modal-body"><div class="alert alert-info"><p>Creates a new ApplicationTemplate resource.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applicationtemplates_post_request" data-toggle="tab">Request</a></li><li><a href="#applicationtemplates_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applicationtemplates_post_request"><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>id</strong>: <em>(number)</em></li><li><strong>display_name</strong>: <em>required (string)</em></li><li><strong>steps</strong>: <em>required (array of ApplicationStepTemplate)</em><p><strong>Items</strong>: ApplicationStepTemplate</p><div class="items"><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_template_id</strong>: <em>(integer)</em></li><li><strong>type</strong>: <em>required (one of old_games, games, numerical_reasoning, surveys, calculate_model_matches, video)</em><p>Types of Application Steps handled by the ApplicationService.</p></li><li><strong>index</strong>: <em>required (integer)</em></li><li><strong>config</strong>: <em>required (object)</em><ul></ul></li></ul></div></li><li><strong>create_date</strong>: <em>(datetime)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "display_name": "H2O Specialist Candidate Application",
+  "steps": [{
+    "index": 0,
+    "type": "old_games",
+    "config": {
+      "game_collection_id": 24
+    }
+  }, {
+    "index": 1,
+    "type": "numerical_reasoning",
+    "config": {
+      "assessment_id": 11
+    }
+  }]
+}
+</code></pre></div></div><div class="tab-pane" id="applicationtemplates_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "type": "ApplicationTemplate",
+  "id": 172,
+  "display_name": "H2O Specialist Candidate Application",
+  "steps": [{
+    "id": 21,
+    "application_template_id": 172,
+    "index": 0,
+    "type": "old_games",
+    "config": {
+      "game_collection_id": 24
+    }
+  }, {
+    "id": 22,
+    "application_template_id": 172,
+    "index": 1,
+    "type": "numerical_reasoning",
+    "config": {
+      "assessment_id": 11
+    }
+  }],
+  "create_date": "2018-05-29T15:53:00+05:00",
+  "links": {
+    "self": "&lt;&lt;resourcePath&gt;&gt;/172"
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applicationtemplates__id_"><span class="parent">/applicationTemplates</span>/{id}</a> <span class="methods"><a href="#applicationtemplates__id__get"><span class="badge badge_get">get</span></a> <a href="#applicationtemplates__id__put"><span class="badge badge_put">put</span></a> <a href="#applicationtemplates__id__delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_applicationtemplates__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applicationtemplates__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves a specific ApplicationTemplate resource.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#applicationtemplates__id__put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Updates a specific ApplicationTemplate resource.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#applicationtemplates__id__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Deletes a specific ApplicationTemplate resource.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applicationtemplates__id__get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/applicationTemplates</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves a specific ApplicationTemplate resource.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applicationtemplates__id__get_request" data-toggle="tab">Request</a></li><li><a href="#applicationtemplates__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applicationtemplates__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applicationtemplates__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>id</strong>: <em>(number)</em></li><li><strong>display_name</strong>: <em>required (string)</em></li><li><strong>steps</strong>: <em>required (array of ApplicationStepTemplate)</em><p><strong>Items</strong>: ApplicationStepTemplate</p><div class="items"><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_template_id</strong>: <em>(integer)</em></li><li><strong>type</strong>: <em>required (one of old_games, games, numerical_reasoning, surveys, calculate_model_matches, video)</em><p>Types of Application Steps handled by the ApplicationService.</p></li><li><strong>index</strong>: <em>required (integer)</em></li><li><strong>config</strong>: <em>required (object)</em><ul></ul></li></ul></div></li><li><strong>create_date</strong>: <em>(datetime)</em></li></ul><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "ApplicationTemplate with Id {ApplicationTemplateId} not found."
+}
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="applicationtemplates__id__put"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent">/applicationTemplates</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates a specific ApplicationTemplate resource.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applicationtemplates__id__put_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applicationtemplates__id__put_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>id</strong>: <em>(number)</em></li><li><strong>display_name</strong>: <em>required (string)</em></li><li><strong>steps</strong>: <em>required (array of ApplicationStepTemplate)</em><p><strong>Items</strong>: ApplicationStepTemplate</p><div class="items"><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_template_id</strong>: <em>(integer)</em></li><li><strong>type</strong>: <em>required (one of old_games, games, numerical_reasoning, surveys, calculate_model_matches, video)</em><p>Types of Application Steps handled by the ApplicationService.</p></li><li><strong>index</strong>: <em>required (integer)</em></li><li><strong>config</strong>: <em>required (object)</em><ul></ul></li></ul></div></li><li><strong>create_date</strong>: <em>(datetime)</em></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="applicationtemplates__id__delete"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent">/applicationTemplates</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Deletes a specific ApplicationTemplate resource.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applicationtemplates__id__delete_request" data-toggle="tab">Request</a></li><li><a href="#applicationtemplates__id__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applicationtemplates__id__delete_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applicationtemplates__id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "ApplicationTemplate with Id {ApplicationTemplateId} deleted."
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="applicationsteptypes" class="panel-title">Application Step Types</h3></div><div class="panel-body"><div class="top-resource-description"><p>Endpoint which returns the pseudo-resource of an ApplicationStepTemplate "Type". Consumers will use this endpoint to get supported step types during creation of an ApplicationTemplate.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applicationsteptypes"><span class="parent"></span>/applicationStepTypes</a> <span class="methods"><a href="#applicationsteptypes_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_applicationsteptypes" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applicationsteptypes_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves a list of all ApplicationStepTemplate types supported by the ApplicationService.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applicationsteptypes_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/applicationStepTypes</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves a list of all ApplicationStepTemplate types supported by the ApplicationService.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applicationsteptypes_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applicationsteptypes_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>types</strong>: <em>required (array of string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "types": ["old_games", "games", "calculate_model_matches", "numerical_reasoning", "video"]
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="applications" class="panel-title">Applications</h3></div><div class="panel-body"><div class="top-resource-description"><p>Endpoints which interact with the Application resource. Consumers will use these endpoints to create Applications for users as well as obtain the status of specific applications.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications"><span class="parent"></span>/applications</a> <span class="methods"><a href="#applications_get"><span class="badge badge_get">get</span></a> <a href="#applications_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_applications" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves a collection of Application resources.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#applications_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Creates a new Application resource.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/applications</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves a collection of Application resources.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>type</strong>: <em>required (string - default: collection)</em></li><li><strong>resourceType</strong>: <em>required (string - default: Application)</em></li><li><strong>data</strong>: <em>required (array of object)</em><p><strong>Items</strong>: Application</p><div class="items"><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_template_id</strong>: <em>required (integer)</em></li><li><strong>user_id</strong>: <em>required (integer)</em></li><li><strong>steps</strong>: <em>(array of ApplicationStep)</em><p><strong>Items</strong>: ApplicationStep</p><div class="items"><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_id</strong>: <em>required (integer)</em></li><li><strong>application_step_template_id</strong>: <em>required (integer)</em></li><li><strong>status</strong>: <em>required (one of not_started, in_progress, complete)</em><p>Status of an Application or ApplicationStep.</p></li><li><strong>start_date</strong>: <em>(any)</em></li><li><strong>complete_date</strong>: <em>(any)</em></li></ul></div></li><li><strong>status</strong>: <em>(one of not_started, in_progress, complete)</em><p>Status of an Application or ApplicationStep.</p></li><li><strong>start_date</strong>: <em>(any)</em></li><li><strong>complete_date</strong>: <em>(any)</em></li></ul></div></li><li><strong>links</strong>: <em>required (object)</em><ul><li><strong>self</strong>: <em>required (string)</em></li></ul></li><li><strong>pagination</strong>: <em>required (object)</em><ul><li><strong>first</strong>: <em>required (string)</em></li><li><strong>previous</strong>: <em>required (string)</em></li><li><strong>next</strong>: <em>required (string)</em></li><li><strong>last</strong>: <em>required (string)</em></li><li><strong>limit</strong>: <em>required (integer)</em></li><li><strong>total</strong>: <em>required (integer)</em></li><li><strong>partial</strong>: <em>required (boolean)</em></li></ul></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "type": "collection",
+  "resourceType": "Application",
+  "data": [{
+    "id": 201,
+    "user_id": 109208,
+    "application_template_id": 202,
+    "status": "in_progress",
+    "steps": [{
+      "id": 144,
+      "application_id": 201,
+      "application_step_template_id": 13,
+      "status": "complete",
+      "start_date": "2018-05-29T15:53:00+05:00",
+      "complete_date": "2018-05-30T15:53:00+05:00"
+    }, {
+      "id": 145,
+      "application_id": 201,
+      "application_step_template_id": 14,
+      "status": "in_progress",
+      "start_date": "2018-05-30T15:53:00+05:00",
+      "complete_date": "null"
+    }, {
+      "id": 146,
+      "application_id": 201,
+      "application_step_template_id": 15,
+      "status": "not_started",
+      "start_date": "null",
+      "complete_date": "null"
+    }],
+    "start_date": "2018-05-29T15:53:00+05:00",
+    "complete_date": "null"
+  }, {
+    "id": 202,
+    "user_id": 109209,
+    "application_template_id": 202,
+    "status": "in_progress",
+    "steps": [{
+      "id": 147,
+      "application_id": 202,
+      "application_step_template_id": 13,
+      "status": "complete",
+      "start_date": "2018-05-29T15:53:00+05:00",
+      "complete_date": "2018-05-29T16:53:00+05:00"
+    }, {
+      "id": 148,
+      "application_id": 202,
+      "application_step_template_id": 14,
+      "status": "complete",
+      "start_date": "2018-05-29T16:53:00+05:00",
+      "complete_date": "2018-05-29T17:53:00+05:00"
+    }, {
+      "id": 149,
+      "application_id": 202,
+      "application_step_template_id": 15,
+      "status": "in_progress",
+      "start_date": "2018-05-29T17:53:00+05:00",
+      "complete_date": "null"
+    }],
+    "start_date": "2018-05-29T15:53:00+05:00",
+    "complete_date": "null"
+  }, {
+    "id": 203,
+    "user_id": 109210,
+    "application_template_id": 202,
+    "status": "complete",
+    "steps": [{
+      "id": 150,
+      "application_id": 203,
+      "application_step_template_id": 13,
+      "status": "complete",
+      "start_date": "2018-05-29T16:53:00+05:00",
+      "complete_date": "2018-05-30T17:53:00+05:00"
+    }, {
+      "id": 151,
+      "application_id": 203,
+      "application_step_template_id": 14,
+      "status": "complete",
+      "start_date": "2018-05-30T16:53:00+05:00",
+      "complete_date": "2018-05-31T17:53:00+05:00"
+    }, {
+      "id": 152,
+      "application_id": 203,
+      "application_step_template_id": 15,
+      "status": "complete",
+      "start_date": "2018-05-31T16:53:00+05:00",
+      "complete_date": "2018-05-31T18:53:00+05:00"
+    }],
+    "start_date": "2018-05-29T16:53:00+05:00",
+    "complete_date": "2018-05-31T18:53:00+05:00"
+  }, {
+    "id": 204,
+    "user_id": 109211,
+    "application_template_id": 202,
+    "status": "in_progress",
+    "steps": [{
+      "id": 153,
+      "application_id": 204,
+      "application_step_template_id": 13,
+      "status": "in_progress",
+      "start_date": "2018-05-29T16:53:00+05:00",
+      "complete_date": "null"
+    }, {
+      "id": 154,
+      "application_id": 204,
+      "application_step_template_id": 14,
+      "status": "not_started",
+      "start_date": "null",
+      "complete_date": "null"
+    }, {
+      "id": 155,
+      "application_id": 204,
+      "application_step_template_id": 15,
+      "status": "not_started",
+      "start_date": "null",
+      "complete_date": "null"
+    }],
+    "start_date": "2018-05-29T16:53:00+05:00",
+    "complete_date": "null"
+  }, {
+    "id": 205,
+    "user_id": 109212,
+    "application_template_id": 202,
+    "status": "not_started",
+    "steps": [{
+      "id": 156,
+      "application_id": 205,
+      "application_step_template_id": 13,
+      "status": "not_started",
+      "start_date": "null",
+      "complete_date": "null"
+    }, {
+      "id": 157,
+      "application_id": 205,
+      "application_step_template_id": 14,
+      "status": "not_started",
+      "start_date": "null",
+      "complete_date": "null"
+    }, {
+      "id": 158,
+      "application_id": 205,
+      "application_step_template_id": 15,
+      "status": "not_started",
+      "start_date": "null",
+      "complete_date": "null"
+    }],
+    "start_date": "null",
+    "complete_date": "null"
+  }],
+  "links": {
+    "self": "&lt;&lt;resourcePath&gt;&gt;?page=3&amp;limit=5"
+  },
+  "pagination": {
+    "first": "&lt;&lt;resourcePath&gt;&gt;?limit=5",
+    "previous": "&lt;&lt;resourcePath&gt;&gt;?page=2&amp;limit=5",
+    "next": "&lt;&lt;resourcePath&gt;&gt;?page=4&amp;limit=5",
+    "last": "&lt;&lt;resourcePath&gt;&gt;?page=100&amp;limit=5",
+    "limit": 5,
+    "total": 500,
+    "partial": true
+  }
+}
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/applications</h4></div><div class="modal-body"><div class="alert alert-info"><p>Creates a new Application resource.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications_post_request" data-toggle="tab">Request</a></li><li><a href="#applications_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_post_request"><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_template_id</strong>: <em>required (integer)</em></li><li><strong>user_id</strong>: <em>required (integer)</em></li><li><strong>steps</strong>: <em>(array of ApplicationStep)</em><p><strong>Items</strong>: ApplicationStep</p><div class="items"><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_id</strong>: <em>required (integer)</em></li><li><strong>application_step_template_id</strong>: <em>required (integer)</em></li><li><strong>status</strong>: <em>required (one of not_started, in_progress, complete)</em><p>Status of an Application or ApplicationStep.</p></li><li><strong>start_date</strong>: <em>(any)</em></li><li><strong>complete_date</strong>: <em>(any)</em></li></ul></div></li><li><strong>status</strong>: <em>(one of not_started, in_progress, complete)</em><p>Status of an Application or ApplicationStep.</p></li><li><strong>start_date</strong>: <em>(any)</em></li><li><strong>complete_date</strong>: <em>(any)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "application_template_id": 101,
+  "user_id": 120400
+}
+</code></pre></div></div><div class="tab-pane" id="applications_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "type": "Application",
+  "id": 1394,
+  "user_id": 120400,
+  "application_template_id": 101,
+  "status": "not_started",
+  "start_date": "null",
+  "complete_date": "null",
+  "steps": [{
+    "id": 272,
+    "application_id": 1394,
+    "application_step_template_id": 11,
+    "status": "not_started",
+    "start_date": "null",
+    "complete_date": "null"
+  }, {
+    "id": 273,
+    "application_id": 1394,
+    "application_step_template_id": 12,
+    "status": "not_started",
+    "start_date": "null",
+    "complete_date": "null"
+  }],
+  "links": {
+    "self": "&lt;&lt;resourcePath&gt;&gt;/1394"
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications__id_"><span class="parent">/applications</span>/{id}</a> <span class="methods"><a href="#applications__id__get"><span class="badge badge_get">get</span></a> <a href="#applications__id__put"><span class="badge badge_put">put</span></a> <a href="#applications__id__delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_applications__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves a specific Application resource.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#applications__id__put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Updates a specific Application resource.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#applications__id__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Deletes a specific Application resource.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications__id__get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/applications</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves a specific Application resource.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications__id__get_request" data-toggle="tab">Request</a></li><li><a href="#applications__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_template_id</strong>: <em>required (integer)</em></li><li><strong>user_id</strong>: <em>required (integer)</em></li><li><strong>steps</strong>: <em>(array of ApplicationStep)</em><p><strong>Items</strong>: ApplicationStep</p><div class="items"><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_id</strong>: <em>required (integer)</em></li><li><strong>application_step_template_id</strong>: <em>required (integer)</em></li><li><strong>status</strong>: <em>required (one of not_started, in_progress, complete)</em><p>Status of an Application or ApplicationStep.</p></li><li><strong>start_date</strong>: <em>(any)</em></li><li><strong>complete_date</strong>: <em>(any)</em></li></ul></div></li><li><strong>status</strong>: <em>(one of not_started, in_progress, complete)</em><p>Status of an Application or ApplicationStep.</p></li><li><strong>start_date</strong>: <em>(any)</em></li><li><strong>complete_date</strong>: <em>(any)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "type": "Application",
+  "id": 1394,
+  "user_id": 120400,
+  "application_template_id": 101,
+  "status": "not_started",
+  "start_date": "null",
+  "complete_date": "null",
+  "steps": [{
+    "id": 272,
+    "application_id": 1394,
+    "application_step_template_id": 11,
+    "status": "not_started",
+    "start_date": "null",
+    "complete_date": "null"
+  }, {
+    "id": 273,
+    "application_id": 1394,
+    "application_step_template_id": 12,
+    "status": "not_started",
+    "start_date": "null",
+    "complete_date": "null"
+  }],
+  "links": {
+    "self": "&lt;&lt;resourcePath&gt;&gt;/1394"
+  }
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Application with Id {ApplicationId} not found."
+}
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications__id__put"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent">/applications</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates a specific Application resource.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications__id__put_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications__id__put_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_template_id</strong>: <em>required (integer)</em></li><li><strong>user_id</strong>: <em>required (integer)</em></li><li><strong>steps</strong>: <em>(array of ApplicationStep)</em><p><strong>Items</strong>: ApplicationStep</p><div class="items"><ul><li><strong>id</strong>: <em>(integer)</em></li><li><strong>application_id</strong>: <em>required (integer)</em></li><li><strong>application_step_template_id</strong>: <em>required (integer)</em></li><li><strong>status</strong>: <em>required (one of not_started, in_progress, complete)</em><p>Status of an Application or ApplicationStep.</p></li><li><strong>start_date</strong>: <em>(any)</em></li><li><strong>complete_date</strong>: <em>(any)</em></li></ul></div></li><li><strong>status</strong>: <em>(one of not_started, in_progress, complete)</em><p>Status of an Application or ApplicationStep.</p></li><li><strong>start_date</strong>: <em>(any)</em></li><li><strong>complete_date</strong>: <em>(any)</em></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications__id__delete"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent">/applications</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Deletes a specific Application resource.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications__id__delete_request" data-toggle="tab">Request</a></li><li><a href="#applications__id__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications__id__delete_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications__id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Application with Id {ApplicationId} deleted."
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#schemas">Schemas</a></li><li><a href="#applicationtemplates">ApplicationTemplates</a></li><li><a href="#applicationsteptypes">Application Step Types</a></li><li><a href="#applications">Applications</a></li></ul></div></div></div></div></body></html>
